@@ -1,0 +1,85 @@
+species,gf,longcode,spcode
+(Aster-broad-leaf),subshrub,astbro,astbro
+(Aster-linear-leaf),subshrub,astlin,astlin
+(Aster-short-leaf),subshrub,astsho,astsho
+(sub-shrub hairy),subshrub,sushai,sushai
+(croton),subshrub,croton,croton
+(Dalea-green),shrub,dalgre,dalgre
+(fuzzy-ball),shrub,fuzbal,fuzbal
+(giant aster),shrub,giast,giast
+(opposite lancealate),shrub,opplan,opplan
+(legume-minute),shrub,legmin,legmin
+(opposite-hairy),shrub,opphai,opphai
+(opposite-wooly),shrub,oppwoo,oppwoo
+(purple-green),subshrub,purgre,purgre
+(red-leaf),subshrub,redlea,redlea
+(rough-broad-leaf),subshrub,roubro,roubro
+(salvia alternate),shrub,salalt,salalt
+(thin-dead-leaf),shrub,thidea,thidea
+(uknown-jointed),shrub,unkjoi,unkjoi
+(unarmed),shrub,unarmd,unarmd
+(woody vine),vine,vine,vine
+(opposite green),shrub,oppgreen,oppgreen
+Acacia constricta,shrub,ACACON,ACCON
+Acacia greggii,shrub,ACAGRE,ACGRE
+Acacia neovernicosa,shrub,ACANEO,ACNEO
+Acacia schaffneri,shrub,ACASCH,ACSCH
+Agave havardiana,succulent,AGAHAV,AGHAV
+Agave lechuguilla,succulent,AGALEC,AGLEC
+Aloysia gratissima,shrub,ALOGRA,ALGRA
+Artemisia ludoviciana,shrub,ARTLUD,ARLUD
+Cercocarpus montanus,shrub,CERMON,CEMON
+Dalea formosa,shrub,DALFOR,DAFOR
+Dasylirion leiophyllum,succulent,DASLEI,DALEI
+Diospyros texana,tree,DIOTEX,DITEX
+Echinocactus horizonthalonius,succulent,ECHHOR,ECHOR
+Echinocereus dasyacanthus,succulent,ECHDAS,ECDAS
+Ephedra torreyana,shrub,EPHTOR,EPTOR
+Ericameria laricifolia,shrub,ERILAR,ERLAR
+Fendlera rupicola,shrub,FENRUP,FERUP
+Fouquieria splendens,shrub,FOUSPL,FOSPL
+Guaiacum angustifolium,shrub,GUAANG,GUANG
+Jatropha dioica,subshrub,JATDIO,JADIO
+Juniperus coahuilensis,tree,JUNCOA,JUCOA
+Juniperus deppeana,tree,JUNDEP,JUDEP
+Juniperus flaccida,tree,JUNFLA,JUFLA
+Juniperus pinchotii,tree,JUNPIN,JUPIN
+Koeberlinia spinosa,shrub,KOESPI,KOSPI
+Krameria grayi,shrub,KRGRA,KRGRA
+Larrea tridentata,shrub,LARTRI,LATRI
+Leucophyllum candidum,shrub,LEUCAN,LECAN
+Mahonia trifoliolata,shrub,MAHTRI,MATRI
+Mimosa aculeaticarpa,shrub,MIMACU,MIACU
+Nolina erumpens,succulent,NOLERU,NOERU
+Opuntia azurea var. parva,subshrub,OPUAZU,OPAZU
+Opuntia chisosensis,succulent,OPUCHI,OPCHI
+Opuntia dulcis,succulent,OPUDUL,OPDUL
+Opuntia grahamii,succulent,OPUGRA,OPGRA
+Opuntia leptocaulis,succulent,OPULEP,OPLEP
+Opuntia phaeacantha ,succulent,OPUPHA,OPPHA
+Opuntia imbricata,succulent,OPOIMB,OPIMB
+Pinus cembroides,tree,PINCEM,PICEM
+Prosopis glandulosa,shrub,PROGLA,PRGLA
+Quercus emoryii,tree,QUEEMO,QUEMO
+Quercus grisea,tree,QUEGRI,QUGRI
+Quercus gravesii,tree,QUEGRA,QUGRA
+Rhus microphylla,shrub,RHUMIC,RHMIC
+Rhus trilobata,shrub,RHUTRI,RHTRI
+Rhus virens,shrub,RHUVIR,RHVIR
+Senna pilosior,subshrub,SENPIL,SEPIL
+Salazaria mexicana,shrub,SALMEX,SAMEX
+Salvia regla,shrub,SALREG,SAREG
+Viguiera stenoloba,shrub,VIGSTE,VISTE
+Yucca elata,succulent,YUCELA,YUELA
+Yucca torreyi,succulent,YUCTOR,YUTOR
+Ziziphus obtusifolia,shrub,ZIZOBT,ZIOBT
+bareground,ground,BG,BG
+herbecous,grass,HERB,HERB
+unk,shrub,astirr,astirr
+unk,shrub,fascic,fascic
+unk,shrub,thigra,thigra
+unk,shrub,astspo,astspo
+unk,vine,cremim,cremim
+unk,tree,JUNX,JUNX
+unk,shurb,COVIR,COVIR
+unk,shurb,THDEL,THDEL
