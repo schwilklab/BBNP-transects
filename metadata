@@ -27,7 +27,7 @@ A. Data Set File
 Identity:
 Trans.2011.csv  – for line-intercept canopy and percent dieback data in 2011
 Trans.2010.csv  – for line-intercept canopy and percent dieback data in 2010
-Species_pub.csv  - for species names code in 2010 and 2011
+Species.csv  - for species names code in 2010 and 2011
 Traits.csv – for leaf traits per species per elevation
 Size:
 Trans.2011-1583 lines, not including header row.
