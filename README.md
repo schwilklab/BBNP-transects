@@ -1,9 +1,6 @@
 BBNP20102011Data
 ================
 
-Data and code from Waring and Schwilk 
+Data and code from Waring and Schwilk 2014
 Plant dieback under exceptional drought driven by elevation, not by plant traits, in Big Bend National Park, Texas USA
-
-
-
-There will be code written in R as well as metadata and data files added to this repo shortly
+PeerJ, 2:e477
