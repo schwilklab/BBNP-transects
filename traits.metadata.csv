@@ -1,0 +1,5 @@
+Variable name,Variable definition,Units,Storage type,Range numeric values,Missing value codes
+longcode,Elevation where data was collected in meters,text,Character,N/A,NA
+spcode,"Five letter code identifying species; comprised of the first two letters of the genus and three letters of specific epitaph,  six letters for individuals that could only be identified to growth form., full names in species_pub.csv",text,character,N/A,NA
+leafl,Transect number; not repeated between years but for replication,cm2,Double,1.96-60.41,NA
+LMA,Initials of individuals who collected data on that transect,g/cm2,double,0.5349181- 11.5191069,NA

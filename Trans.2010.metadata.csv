@@ -1,0 +1,8 @@
+Variable name,Variable definition,Units,Storage type,Range numeric values,Missing value codes
+site,Code for the site where data was collected,text,character,NA,NA
+spcode,"Five letter code identifying species (six letters for individuals only identified to growth form); comprised of the first two letters of the genus and three letters of specific epitaph, full names in species_pub.csv",text,character,NA,NA
+ttrans,Transect number; not repeated between years but for replication,number,floating point,12-Jan,NA
+team,Initials of individuals who collected data on that transect,text,string,N/A,NA
+start,Where on the 50-m transect the canopy of an individual plant started intersecting the transect,m,double,0-49.95,NA
+stop,Where on the 50-m transect the canopy of an individual plant stopped intersecting the transect,m,double,0.07-56.22,NA
+dist,The size of the canopy intersecting the transect (start-stop) in m,m,double,0.00-44.89,NA

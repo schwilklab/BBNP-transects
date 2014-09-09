@@ -1,0 +1,6 @@
+Variable name,Variable definition,Storage type,Missing value codes
+species,Name of species,character,NA
+family,Family of species,character,NA
+gf,Growth form of species,character,NA
+longcode,"Six letter code for species, first three letters of genus and first 3 letters of species name",character,NA
+spcode,"Five letter code identifying species; comprised of the first two letters of the genus and three letters of specific epitaph, six letters for individuals that could only be identified to growth form.",character,NA
