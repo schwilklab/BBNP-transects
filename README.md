@@ -18,6 +18,13 @@ Leaf Trait data from 2010:[https://github.com/efwaring/BBNP20102011Data/blob/mas
 Metadata on leaf trait data:[https://github.com/efwaring/BBNP20102011Data/blob/master/traits.metadata.csv](https://github.com/efwaring/BBNP20102011Data/blob/master/traits.metadata.csv) <br>
 
 Data on species measured in the study: [https://github.com/efwaring/BBNP20102011Data/blob/master/species.csv](https://github.com/efwaring/BBNP20102011Data/blob/master/species.csv) <br>
-Metadata on species data:[http://https://github.com/efwaring/BBNP20102011Data/blob/master/species.metadata.csv](http://https://github.com/efwaring/BBNP20102011Data/blob/master/species.metadata.csv)
+Metadata on species data:[http://https://github.com/efwaring/BBNP20102011Data/blob/master/species.metadata.csv](http://https://github.com/efwaring/BBNP20102011Data/blob/master/species.metadata.csv)<br>
 
-Links to R Code: [http://https://github.com/efwaring/BBNP20102011Data/blob/master/WaringSchwilk_2104.R](http://https://github.com/efwaring/BBNP20102011Data/blob/master/WaringSchwilk_2104.R)
+Links to R Code:<br>
+
+For code on how data was shaped:[http://https://github.com/efwaring/BBNP20102011Data/blob/master/WaringSchwilk_dataShape.R](http://https://github.com/efwaring/BBNP20102011Data/blob/master/WaringSchwilk_dataShape.R)<br>
+For code on statistical analysis: [https://github.com/efwaring/BBNP20102011Data/blob/master/WaringSchwilk_stats.R](https://github.com/efwaring/BBNP20102011Data/blob/master/WaringSchwilk_stats.R) <br>
+For code on figure making:[http://https://github.com/efwaring/BBNP20102011Data/blob/master/WaringSchwilk_figureCode.R](http://https://github.com/efwaring/BBNP20102011Data/blob/master/WaringSchwilk_figureCode.R)<br>
+
+For all code in one file: [http://https://github.com/efwaring/BBNP20102011Data/blob/master/WaringSchwilk_2104.R](http://https://github.com/efwaring/BBNP20102011Data/blob/master/WaringSchwilk_2104.R)
+
