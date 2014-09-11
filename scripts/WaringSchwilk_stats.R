@@ -2,8 +2,9 @@
 # Code for BBNP Drought project with Dylan Scwhilk
 # data collected in 2010 and 2011 at Big Bend National Park
 # this code was used for statistical analysis
-# please see WaringSchwilk_dataShape for variables
+# please see WaringSchwilk_dataShape.R for variables
 
+source("./WaringSchwilk_dataShape.R")
 
 # Statistical Analysis
 

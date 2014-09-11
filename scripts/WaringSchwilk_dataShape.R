@@ -10,13 +10,13 @@ library(plyr)
 
 # All needed csv files
 
-species <- read.csv("species.csv",
+species <- read.csv("../data/species.csv",
                     strip.white=TRUE, stringsAsFactors = FALSE)
-trans.2011 <- read.csv("Trans.2011.csv",strip.white=TRUE,
+trans.2011 <- read.csv("../data/Trans.2011.csv",strip.white=TRUE,
                        stringsAsFactors = FALSE)
-trans.2010 <- read.csv("Trans.2010.csv",strip.white=TRUE,
+trans.2010 <- read.csv("../data/Trans.2010.csv",strip.white=TRUE,
                        stringsAsFactors = FALSE)
-traits <-  read.csv("traits.csv",strip.white=TRUE, stringsAsFactors = FALSE)
+traits <-  read.csv("../data/traits.csv",strip.white=TRUE, stringsAsFactors = FALSE)
 
 
 ############################################################################
@@ -25,7 +25,7 @@ traits <-  read.csv("traits.csv",strip.white=TRUE, stringsAsFactors = FALSE)
 
 
 # Clean up species (5 column removed)
-species2<-species #for table 3
+species2 <- species # for table 3
 species <- subset(species, select = c(species,gf,longcode, spcode))
 
 
