@@ -7,6 +7,8 @@
 source("./WaringSchwilk_dataShape.R")
 
 # Statistical Analysis
+library(nlme)
+library(ggplot2)
 
 # for all species and gf together
 # Nested transects when looking at effects of elevation and year on varible
@@ -16,9 +18,13 @@ source("./WaringSchwilk_dataShape.R")
 # Test including GF in analysis ADDED 12-5
 # testing for normality.  Using a Shapiro-Wilk test
 shapiro.test(plants.tcover2$tcover)
+
 # mixed effects model
-lme.plants.tcover2 <- lme(tcover ~ elev*year*gf, random = ~1|elev,
+## DWS: line below fails in numerical solution:
+lme.plants.tcover2 <- lme(tcover ~ elev*year*gf, random = ~ 1|elev,
                           data=plants.tcover2)
+
+
 summary(lme.plants.tcover2)
 anova(lme.plants.tcover2)
 qplot(elev, tcover, data=plants.tcover2, color=year) + geom_smooth(method="lm")
@@ -38,6 +44,9 @@ qplot(elev, lcover, data=plants.tcover, color=year) + geom_smooth(method="lm")
 plot(plants.tcover$elev, resid(lme.plants.lcover))
 
 #### For GF analysis
+## DWS: line below fails as well:
+## Error in MEEM(object, conLin, control$niterEM) : 
+##   Singularity in backsolve at level 0, block 1
 lme.plants.lcover2 <- lme(lcover ~ elev*year*gf, random = ~1|elev,
                           data=plants.tcover2)
 summary(lme.plants.lcover2)
@@ -48,6 +57,7 @@ plot(plants.tcover$elev, resid(lme.plants.lcover2))
 
 
 #For relative cover inlcuding gf
+## DWS: fails: these code are wrong, I think. 
 lme.plants.relcover <- lme(logPrelcover ~ elev*year*gf, random = ~1|elev,
                            data=plants.relcover)
 summary(lme.plants.relcover)
@@ -193,5 +203,7 @@ sptraits.lme<-lme(logPdieback~ gf , random = ~ 1 | elev,
                   data = traits.die2)
 summary(sptraits.lme)
 anova(sptraits.lme)
+
+## DWS: error in call below, `spcode` not a columns in traits.die2
 qplot(pdieback, spcode, data=traits.die2) + geom_smooth(method="lm")
 

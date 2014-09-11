@@ -3,10 +3,7 @@
 # data collected in 2010 and 2011 at Big Bend National Park
 # This code was used for data shaping.
 
-
 library(plyr)
-
-
 
 # All needed csv files
 
