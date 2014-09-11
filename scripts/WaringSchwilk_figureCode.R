@@ -4,8 +4,9 @@
 # This code was used for making figures for this paper
 # Use varible names from WaringSchwilk_dataShape.R
 
-library(ggplot2)
+source("./WaringSchwilk_dataShape.R")
 
+library(ggplot2)
 
 # information used for figure formatting
 
@@ -33,16 +34,21 @@ themeopts <- theme( axis.title.y = element_text(size = textsize,
 # Table 3
 dieByGF<-ddply(dieback.2011, .(elev, gf), summarize, pd_sd=sd(pdieback),
                pd=mean(pdieback))
+
 totalPD<-ddply(dieback.2011, .(elev), summarize, pd_sd=sd(pdieback),
-               pd=mean(pdieback))0
+               pd=mean(pdieback))
 #table 4
+
+## DWS: this seems to depend upon something created in the WarngSchwilk_stats.R script.  But 1) that is poor organization, why should figures depend upon stats? and 2) that file fails with errors so we can't build the figures
+
 dieback.traits11<-subset(dieback.traits, year=="2011")
+
 dieBySPP<-ddply(dieback.traits11, .(elev, spcode, gf), summarize,
                 pd_sd=sd(pdieback), 
                 pd=mean(pdieback))
 dieBySPP<-merge(dieBySPP, species2)
-write.csv(dieByGF, "Table3Data.csv")
-write.csv(dieBySPP, "Table4Data.csv")
+write.csv(dieByGF, "../results/Table3Data.csv")
+write.csv(dieBySPP, "../results/Table4Data.csv")
 
 # code for making figures in text and supplemental figures
 
@@ -88,8 +94,7 @@ ggplot(total.cover, aes(elev, tcover, shape=year, linetype=year)) +
         legend.background = element_rect(color="gray20", 
                                          linetype="solid", size=0.5))
 
-
-ggsave(file="fig1-Tcover.png", dpi=300)
+ggsave(file="../results/fig1-Tcover.png", dpi=300)
 
 
 # total living cover
@@ -109,7 +114,7 @@ ggplot(total.cover, aes(elev, lcover, shape=year)) +
         legend.background = element_rect(color="gray20", 
                                          linetype="solid", size=0.5))
 
-ggsave("fig3-lCover.png", dpi=300)
+ggsave("/results/fig3-lCover.png", dpi=300)
 
 ##############################################################################
 # Dieback figs
@@ -134,7 +139,7 @@ ggplot(die.total, aes(elev, logPdieback)) +
   labs(y="Proportional Dieback (logit)") +
   themeopts
 
-ggsave("fig4-dieback.png", dpi=300)
+ggsave("../results/fig4-dieback.png", dpi=300)
 
 
 #wLMA by dieback by elev
@@ -145,8 +150,7 @@ ggplot(traits.die1, aes(wLMA, logPdieback, shape=felev)) +
   scale_shape_discrete(name = "Elevation") +
   themeopts 
 
-
-ggsave("fig5.wLMA2.png", dpi=300)
+ggsave("../results/fig5.wLMA2.png", dpi=300)
 
 # Relcover all GF in 2010
 
@@ -163,7 +167,7 @@ ggplot(relcover2010, aes(elev, relcover)) +
   labs(y="Relative Cover (logit transformed)") +
   themeopts 
 
-ggsave("fig2.relcover.png", dpi=300)
+ggsave("../results/fig2.relcover.png", dpi=300)
 
 # Step 3:  Make dieback Frequency plots
 freq=subset(plants.cover, plants.cover$year=="2011")
@@ -198,41 +202,32 @@ suc <- ggplot(freq, aes(pdieback)) +
   themeopts
 
 grid.arrange(tree, shrub, subshrub, suc, nrow=2)
-ggsave("freqDieback.png", dpi=300)
+ggsave("../results/freqDieback.png", dpi=300)
 
 
-#figures for residuals
+# figures for residuals
+
+## DWS: these all fail. residXXX objects do not exist
 
 #total cover
-
-residTC<-residTC+themeopts
-
-ggsave("SF2.residualsTC.png", dpi=300)
+residTC <- residTC+themeopts
+ggsave("../results/SF2.residualsTC.png", dpi=300)
 
 #living cover
-
 residLC<-residLC+themeopts
-
-ggsave("SF4.residualsLC.png", dpi=300)
+ggsave("../results/SF4.residualsLC.png", dpi=300)
 
 #total relative cover
-
 residREL<-residREL+themeopts
-
-ggsave("SF3.residualsREL.png", dpi=300)
+ggsave("./results/SF3.residualsREL.png", dpi=300)
 
 #proportional dieback
-
 residLogP<-residLogP+themeopts
-
-ggsave("SF5.residualslogPdie.png", dpi=300)
+ggsave("./results/SF5.residualslogPdie.png", dpi=300)
 
 #figure 5
-
 residFig5<-residFig5+themeopts
-
-ggsave("SF6.residualswLMA.png", dpi=300)
-
+ggsave("../results/SF6.residualswLMA.png", dpi=300)
 grid.arrange(residTC, residLC, residREL, residLogP, residFig5, ncol=3)
 
 
