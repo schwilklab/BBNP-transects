@@ -7,17 +7,15 @@ library(ggplot2)
 library(nlme)
 library(plyr)
 
-
-
 # All needed csv files
 
-species <- read.csv("species.csv",
+species <- read.csv("../data/species.csv",
                     strip.white=TRUE, stringsAsFactors = FALSE)
-trans.2011 <- read.csv("Trans.2011.csv",strip.white=TRUE,
+trans.2011 <- read.csv("../data/Trans.2011.csv",strip.white=TRUE,
                        stringsAsFactors = FALSE)
-trans.2010 <- read.csv("Trans.2010.csv",strip.white=TRUE,
+trans.2010 <- read.csv("../data/Trans.2010.csv",strip.white=TRUE,
                        stringsAsFactors = FALSE)
-traits <-  read.csv("traits.csv",strip.white=TRUE, stringsAsFactors = FALSE)
+traits <-  read.csv("../data/traits.csv",strip.white=TRUE, stringsAsFactors = FALSE)
 
 
 ############################################################################
