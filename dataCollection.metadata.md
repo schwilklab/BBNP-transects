@@ -1,3 +1,5 @@
+The metadata is in the format from metadata submitted to Ecological Archives (http://esapubs.org/archive/instruct_d.htm)<br>
+
 <b>Title: Plant dieback under exceptional drought driven by elevation, not by plant traits, in Big Bend National Park, Texas USA</b><br>
 
 
