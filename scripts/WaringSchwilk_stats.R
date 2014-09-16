@@ -20,14 +20,14 @@ library(ggplot2)
 shapiro.test(plants.tcover2$tcover)
 
 # mixed effects model
-## DWS: line below fails in numerical solution:
-lme.plants.tcover2 <- lme(tcover ~ elev*year*gf, random = ~ 1|elev,
-                          data=plants.tcover2)
+
+lme.plants.tcover <- lme(tcover ~ elev*year, random = ~ 1|elev,
+                          data=plants.tcover)
 
 
-summary(lme.plants.tcover2)
-anova(lme.plants.tcover2)
-qplot(elev, tcover, data=plants.tcover2, color=year) + geom_smooth(method="lm")
+summary(lme.plants.tcover)
+anova(lme.plants.tcover)
+qplot(elev, tcover, data=plants.tcover, color=year) + geom_smooth(method="lm")
 
 plot(plants.tcover2$elev, resid(lme.plants.tcover2))
 
@@ -43,21 +43,8 @@ qplot(elev, lcover, data=plants.tcover, color=year) + geom_smooth(method="lm")
 
 plot(plants.tcover$elev, resid(lme.plants.lcover))
 
-#### For GF analysis
-## DWS: line below fails as well:
-## Error in MEEM(object, conLin, control$niterEM) : 
-##   Singularity in backsolve at level 0, block 1
-lme.plants.lcover2 <- lme(lcover ~ elev*year*gf, random = ~1|elev,
-                          data=plants.tcover2)
-summary(lme.plants.lcover2)
-anova(lme.plants.lcover2)
-qplot(elev, lcover, data=plants.tcover2, color=year) + geom_smooth(method="lm")
 
-plot(plants.tcover$elev, resid(lme.plants.lcover2))
-
-
-#For relative cover inlcuding gf
-## DWS: fails: these code are wrong, I think. 
+#For relative cover including gf
 lme.plants.relcover <- lme(logPrelcover ~ elev*year*gf, random = ~1|elev,
                            data=plants.relcover)
 summary(lme.plants.relcover)
@@ -93,18 +80,14 @@ plot(dieback.2011$elev, resid(lme.logPdieback2))
 
 # We will exclude succulents from the weighted LMA calculations, also these 
 # data are from 2010 only
+# using dieback.traits from source("./WaringSchwilk_dataShape.R")
 
-dieback.traits <-ddply(plants.cover2, .(elev, felev, ttrans, year, spcode, gf),
-                       summarise,tdieback=sum(tdieback),
-                       lcover=sum(lcover + 0.00001),
-                       pdieback=mean(pdieback),
-                       cover=mean(cover))
-
-dieback.traits <-subset(dieback.traits, dieback.traits$year=="2011")
 
 traits.die <- merge(traits, dieback.traits, by="spcode")
 Suc<-traits.die
 traits.die <- subset(traits.die, gf=="shrub" | gf=="subshrub" | gf == "tree")
+
+# code to remove conifer species from dataset
 noConifer<-subset(traits.die, spcode!="JUDEP")
 noConifer<-subset(traits.die, spcode!="JUFLA") 
 noConifer<-subset(traits.die, spcode!="JUPIN")
@@ -116,8 +99,8 @@ noConifer<-subset(traits.die, spcode!="PICEM")
 traits.die1 <- ddply(traits.die, .(elev,felev, ttrans), summarize,
                      tdieback =mean(tdieback),
                      pdieback = mean(pdieback),
-                     wLMA = weighted.mean(LMA, cover, na.rm = TRUE),
-                     wLLMA=weighted.mean(LMA, lcover, na.rm = TRUE))
+                     wLMA = weighted.mean(LMA, cover, na.rm = TRUE)
+                    )
 traits.die1$logPdieback <- log((traits.die1$pdieback - epsilon)/
                                  (1-(traits.die1$pdieback - epsilon)))
 
@@ -125,8 +108,7 @@ traits.die1$logPdieback <- log((traits.die1$pdieback - epsilon)/
 Suc <- ddply(Suc, .(elev,felev, ttrans), summarize,
              tdieback =mean(tdieback),
              pdieback = mean(pdieback),
-             wLMA = weighted.mean(LMA, cover, na.rm = TRUE),
-             wLLMA=weighted.mean(LMA, lcover, na.rm = TRUE))
+             wLMA = weighted.mean(LMA, cover, na.rm = TRUE))
 Suc$logPdieback <- log((Suc$pdieback - epsilon)/
                          (1-(Suc$pdieback - epsilon)))
 
@@ -198,12 +180,15 @@ qplot(wLMA, logPdieback, shape=group, data=allTC) + geom_smooth(method="lm")
 
 # Trait stats by species
 
+#need to add in the logP of dieback on species level in traits.die
+traits.die$logPdieback <- log((traits.die$pdieback - epsilon)/
+                                 (1-(traits.die$pdieback - epsilon)))
+traits.die<-na.omit(traits.die)
 
-sptraits.lme<-lme(logPdieback~ gf , random = ~ 1 | elev, 
-                  data = traits.die2)
+sptraits.lme<-lme(logPdieback~ spcode , random = ~ 1 | elev, 
+                  data = traits.die)
 summary(sptraits.lme)
 anova(sptraits.lme)
 
-## DWS: error in call below, `spcode` not a columns in traits.die2
-qplot(pdieback, spcode, data=traits.die2) + geom_smooth(method="lm")
+qplot(pdieback, spcode, data=traits.die) + geom_smooth(method="lm")
 

@@ -196,4 +196,11 @@ dieback.2011 <- ddply(dieback2.2011, .(elev, felev, ttrans, gf),
                       pdieback=mean(pdieback),
                       logPdieback=mean(logPdieback)
 )
+# for dieback and leaf trait analysis
+dieback.traits <-ddply(plants.cover2, .(elev, felev, ttrans, year, spcode, gf),
+                       summarise,tdieback=sum(tdieback),
+                       lcover=sum(lcover + 0.00001),
+                       pdieback=mean(pdieback),
+                       cover=mean(cover))
 
+dieback.traits <-subset(dieback.traits, dieback.traits$year=="2011")

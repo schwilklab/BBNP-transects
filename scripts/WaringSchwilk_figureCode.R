@@ -39,8 +39,6 @@ totalPD<-ddply(dieback.2011, .(elev), summarize, pd_sd=sd(pdieback),
                pd=mean(pdieback))
 #table 4
 
-## DWS: this seems to depend upon something created in the WarngSchwilk_stats.R script.  But 1) that is poor organization, why should figures depend upon stats? and 2) that file fails with errors so we can't build the figures
-
 dieback.traits11<-subset(dieback.traits, year=="2011")
 
 dieBySPP<-ddply(dieback.traits11, .(elev, spcode, gf), summarize,
@@ -80,7 +78,6 @@ die.total <- ddply(dieback.2011, .(elev,gf), summarize,
 ggplot(total.cover, aes(elev, tcover, shape=year, linetype=year)) +
   geom_pointrange(aes(ymin=tcover-tcoversd, ymax=tcover+tcoversd),size=1,
                   position = position_dodge(20))+
-  #geom_smooth(method="lm", size=1,se=FALSE) +
   geom_abline(intercept=-0.3388674, slope=0.0006750, size=1) +
   geom_abline(intercept=-0.1995648, slope=0.0005231, size=1, color="gray50",
               linetype="dashed") +
