@@ -7,6 +7,7 @@
 source("./WaringSchwilk_dataShape.R")
 
 library(ggplot2)
+library(gridExtra)
 
 # information used for figure formatting
 
