@@ -153,13 +153,13 @@ ggsave("../results/fig5.wLMA2.png", dpi=300)
 # Relcover all GF in 2010
 
 
-relcover2010<-subset(total.relcover, total.relcover$year=="2010")
+relcover2010 <- subset(total.relcover, total.relcover$year=="2010")
 ggplot(relcover2010, aes(elev, relcover)) +
   geom_smooth(method="lm", linetype="dashed", size=1, color = "gray20",
               se=FALSE) +
   scale_x_continuous(breaks=c(750,1250,1750))+
   geom_pointrange(aes(ymin=relcover-relcoversd, ymax=relcover+  
-                        relcoversd), size=0.75,position = position_dodge(20))+
+                        relcoversd), size=0.75,position = position_dodge(20)) +
   facet_grid(.~gf) +
   labs(x="Elevation (m)") +
   labs(y="Relative Cover (logit transformed)") +
@@ -170,27 +170,30 @@ ggsave("../results/fig2.relcover.png", dpi=300)
 # Step 3:  Make dieback Frequency plots
 freq=subset(plants.cover, plants.cover$year=="2011")
 
-tree<-ggplot(freq, aes(pdieback)) +
+tree <- ggplot(freq, aes(pdieback)) +
   geom_histogram(data=subset(freq, gf=="tree" ),alpha=0.1,binwidth=0.1,
                  colour="black", fill="white") +
   labs(x="Proportion of Tree Canopy Dieback", y="Frequency") +
   scale_x_continuous(limits=c(0,1))+
   scale_y_continuous(limits=c(0,20)) +
   themeopts 
-shrub<-ggplot(freq, aes(pdieback)) + 
+
+shrub <- ggplot(freq, aes(pdieback)) + 
   geom_histogram(data=subset(freq, gf=="shrub"), alpha=0.1,binwidth=0.1,
                  colour="black", fill="white") +
   labs(x="Proportion of Shrub Canopy Dieback", y="Frequency") +
   scale_x_continuous(limits=c(0,1))+
   scale_y_continuous(limits=c(0,20)) +
   themeopts
-subshrub<- ggplot(freq, aes(pdieback)) + 
+
+subshrub <- ggplot(freq, aes(pdieback)) + 
   geom_histogram(data=subset(freq, gf=="subshrub"), alpha=0.1, binwidth=0.1,
                  colour="black", fill="white") +
   labs(x="Proportion of Subshrub Canopy Dieback", y="Frequency") +
   scale_x_continuous(limits=c(0,1))+
   scale_y_continuous(limits=c(0,20)) +
   themeopts
+
 suc <- ggplot(freq, aes(pdieback)) +
   geom_histogram(data=subset(freq, gf=="succulent"),alpha=0.1, binwidth=0.1,
                  colour="black", fill="white") +
@@ -208,7 +211,7 @@ ggsave("../results/freqDieback.png", dpi=300)
 ## DWS: these all fail. residXXX objects do not exist
 
 #total cover
-residTC <- residTC+themeopts
+residTC <- residTC + themeopts
 ggsave("../results/SF2.residualsTC.png", dpi=300)
 
 #living cover
