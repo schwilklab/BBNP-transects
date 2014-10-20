@@ -111,7 +111,7 @@ ggplot(total.cover, aes(elev, lcover, shape=year)) +
         legend.background = element_rect(color="gray20", 
                                          linetype="solid", size=0.5))
 
-ggsave("/results/fig3-lCover.png", dpi=300)
+ggsave("../results/fig3-lCover.png", dpi=300)
 
 ##############################################################################
 # Dieback figs
