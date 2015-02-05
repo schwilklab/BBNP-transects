@@ -1,84 +1,84 @@
-species,family,gf,longcode,spcode
-(Aster-broad-leaf),Asteraceae,subshrub,astbro,astbro
-(Aster-linear-leaf),Asteraceae,subshrub,astlin,astlin
-(Aster-short-leaf),Asteraceae,subshrub,astsho,astsho
-(aster-shrub),Asteraceae,shrub,astirr,astirr
-(aster-spotty),,shrub,astspo,astspo
-(creeping),,vine,cremim,cremim
-(croton),,subshrub,croton,croton
-(Dalea-green),Fabaceae,shrub,dalgre,dalgre
-(fascicled-1),,shrub,fascic,fascic
-(fuzzy-ball),,shrub,fuzbal,fuzbal
-(giant aster),Asteraceae,shrub,giast,giast
-(juniper-spp),Cupressaceae,tree,JUNX,JUNX
-(legume-minute),Fabaceae,shrub,legmin,legmin
-(opposite green),,shrub,oppgreen,oppgreen
-(opposite lancealate),,shrub,opplan,opplan
-(opposite-hairy),,shrub,opphai,opphai
-(opposite-wooly),,shrub,oppwoo,oppwoo
-(purple-green),,subshrub,purgre,purgre
-(red-leaf),,subshrub,redlea,redlea
-(rough-broad-leaf),,subshrub,roubro,roubro
-(salvia alternate),,shrub,salalt,salalt
-(sub-shrub hairy),,subshrub,sushai,sushai
-(thin-dead-leaf),,shrub,thidea,thidea
-(thin-gray),,shrub,thigra,thigra
-(uknown-jointed),,shrub,unkjoi,unkjoi
-(unarmed),Fabaceae,shrub,unarmd,unarmd
-(woody vine),,vine,vine,vine
-Acacia constricta,Fabaceae,shrub,ACACON,ACCON
-Acacia greggii,Fabaceae,shrub,ACAGRE,ACGRE
-Acacia neovernicosa,Fabaceae,shrub,ACANEO,ACNEO
-Acacia schottii,Fabaceae,shrub,ACASCH,ACSCH
-Agave havardiana,Agavaceae,succulent,AGAHAV,AGHAV
-Agave lechuguilla,Agavaceae,succulent,AGALEC,AGLEC
-Aloysia gratissima,Verbenaceae,shrub,ALOGRA,ALGRA
-Artemisia ludoviciana,Asteraceae,shrub,ARTLUD,ARLUD
-Cercocarpus montanus,Rosaceae,shrub,CERMON,CEMON
-Condalis viridis,Rhamnaceae,shrub,COVIR,COVIR
-Dalea formosa,Fabaceae,shrub,DALFOR,DAFOR
-Dasylirion leiophyllum,Nolinaceae,succulent,DASLEI,DALEI
-Diospyros texana,Ebenaceae,shrub,DIOTEX,DITEX
-Echinocactus horizonthalonius,Cactaceae,succulent,ECHHOR,ECHOR
-Echinocereus dasyacanthus,Cactaceae,succulent,ECHDAS,ECDAS
-Ephedra torreyana,Ephedraceae,shrub,EPHTOR,EPTOR
-Ericameria laricifolia,Asteraceae,shrub,ERILAR,ERLAR
-Fendlera rupicola,Hydrangeaceae,shrub,FENRUP,FERUP
-Fouquieria splendens,Fouquiereaceae,shrub,FOUSPL,FOSPL
-Guaiacum angustifolium,Fabaceae,shrub,GUAANG,GUANG
-Jatropha dioica,Euphorbiaceae,subshrub,JATDIO,JADIO
-Juniperus coahuilensis,Cupressaceae,tree,JUNCOA,JUCOA
-Juniperus deppeana,Cupressaceae,tree,JUNDEP,JUDEP
-Juniperus flaccida,Cupressaceae,tree,JUNFLA,JUFLA
-Juniperus pinchotii,Cupressaceae,shrub,JUNPIN,JUPIN
-Koeberlinia spinosa,Koeberlinaceae,shrub,KOESPI,KOSPI
-Krameria grayi,Krameriaceae,shrub,KRGRA,KRGRA
-Larrea tridentata,Zygophyllaceae,shrub,LARTRI,LATRI
-Leucophyllum candidum,Scrophulareaceae,shrub,LEUCAN,LECAN
-Mahonia trifoliolata,Berberaceae,shrub,MAHTRI,MATRI
-Mimosa aculeaticarpa,Fabaceae,shrub,MIMACU,MIACU
-Nolina erumpens,Nolinaceae,succulent,NOLERU,NOERU
-Opuntia azurea var. parva,Cactaceae,subshrub,OPUAZU,OPAZU
-Opuntia chisosensis,Cactaceae,succulent,OPUCHI,OPCHI
-Opuntia dulcis,Cactaceae,succulent,OPUDUL,OPDUL
-Opuntia grahamii,Cactaceae,succulent,OPUGRA,OPGRA
-Opuntia imbricata,Cactaceae,succulent,OPOIMB,OPIMB
-Opuntia leptocaulis,Cactaceae,succulent,OPULEP,OPLEP
-Opuntia phaecantha,Cactaceae,succulent,OPUPHA,OPPHA 
-Pinus cembroides,Pinaceae,tree,PINCEM,PICEM
-Prosopis glandulosa,Fabaceae,shrub,PROGLA,PRGLA
-Quercus emoryii,Fagaceae,tree,QUEEMO,QUEMO
-Quercus gravesii,Fagaceae,tree,QUEGRA,QUGRA
-Quercus grisea,Fagaceae,tree,QUEGRI,QUGRI
-Rhus microphylla,Anacardiaceae,shrub,RHUMIC,RHMIC
-Rhus trilobata,Anacardiaceae,shrub,RHUTRI,RHTRI
-Rhus virens,Anacardiaceae,shrub,RHUVIR,RHVIR
-Salazaria mexicana,Lamiaceae,shrub,SALMEX,SAMEX
-Salvia regla,Lamiaceae,shrub,SALREG,SAREG
-Senna pilosior,Fabaceae,subshrub,SENPIL,SEPIL
-Viguiera stenoloba,Asteraceae,shrub,VIGSTE,VISTE
-Yucca elata,Agavaceae,succulent,YUCELA,YUELA
-Yucca torreyi,Agavaceae,succulent,YUCTOR,YUTOR
-Ziziphus obtusifolia,Rhamnaceae,shrub,ZIZOBT,ZIOBT
-,,,BG,BG
-,,,HERB,HERB
+"species","family","gf","longcode","spcode"
+"(Aster-broad-leaf)","Asteraceae","subshrub","astbro","astbro"
+"(Aster-linear-leaf)","Asteraceae","subshrub","astlin","astlin"
+"(Aster-short-leaf)","Asteraceae","subshrub","astsho","astsho"
+"(aster-shrub)","Asteraceae","shrub","astirr","astirr"
+"(aster-spotty)",,"shrub","astspo","astspo"
+"(creeping)",,"vine","cremim","cremim"
+"(croton)",,"subshrub","croton","croton"
+"(Dalea-green)","Fabaceae","shrub","dalgre","dalgre"
+"(fascicled-1)",,"shrub","fascic","fascic"
+"(fuzzy-ball)",,"shrub","fuzbal","fuzbal"
+"(giant aster)","Asteraceae","shrub","giast","giast"
+"(juniper-spp)","Cupressaceae","tree","JUNX","JUNX"
+"(legume-minute)","Fabaceae","shrub","legmin","legmin"
+"(opposite green)",,"shrub","oppgreen","oppgreen"
+"(opposite lancealate)",,"shrub","opplan","opplan"
+"(opposite-hairy)",,"shrub","opphai","opphai"
+"(opposite-wooly)",,"shrub","oppwoo","oppwoo"
+"(purple-green)",,"subshrub","purgre","purgre"
+"(red-leaf)",,"subshrub","redlea","redlea"
+"(rough-broad-leaf)",,"subshrub","roubro","roubro"
+"(salvia alternate)",,"shrub","salalt","salalt"
+"(sub-shrub hairy)",,"subshrub","sushai","sushai"
+"(thin-dead-leaf)",,"shrub","thidea","thidea"
+"(thin-gray)",,"shrub","thigra","thigra"
+"(uknown-jointed)",,"shrub","unkjoi","unkjoi"
+"(unarmed)","Fabaceae","shrub","unarmd","unarmd"
+"(woody vine)",,"vine","vine","vine"
+"Acacia constricta","Fabaceae","shrub","ACACON","ACCON"
+"Acacia greggii","Fabaceae","shrub","ACAGRE","ACGRE"
+"Acacia neovernicosa","Fabaceae","shrub","ACANEO","ACNEO"
+"Acacia schottii","Fabaceae","shrub","ACASCH","ACSCH"
+"Agave havardiana","Agavaceae","succulent","AGAHAV","AGHAV"
+"Agave lechuguilla","Agavaceae","succulent","AGALEC","AGLEC"
+"Aloysia gratissima","Verbenaceae","shrub","ALOGRA","ALGRA"
+"Artemisia ludoviciana","Asteraceae","shrub","ARTLUD","ARLUD"
+"Cercocarpus montanus","Rosaceae","shrub","CERMON","CEMON"
+"Condalis viridis","Rhamnaceae","shrub","COVIR","COVIR"
+"Dalea formosa","Fabaceae","shrub","DALFOR","DAFOR"
+"Dasylirion leiophyllum","Nolinaceae","succulent","DASLEI","DALEI"
+"Diospyros texana","Ebenaceae","shrub","DIOTEX","DITEX"
+"Echinocactus horizonthalonius","Cactaceae","succulent","ECHHOR","ECHOR"
+"Echinocereus dasyacanthus","Cactaceae","succulent","ECHDAS","ECDAS"
+"Ephedra torreyana","Ephedraceae","shrub","EPHTOR","EPTOR"
+"Ericameria laricifolia","Asteraceae","shrub","ERILAR","ERLAR"
+"Fendlera rupicola","Hydrangeaceae","shrub","FENRUP","FERUP"
+"Fouquieria splendens","Fouquiereaceae","shrub","FOUSPL","FOSPL"
+"Guaiacum angustifolium","Fabaceae","shrub","GUAANG","GUANG"
+"Jatropha dioica","Euphorbiaceae","subshrub","JATDIO","JADIO"
+"Juniperus coahuilensis","Cupressaceae","tree","JUNCOA","JUCOA"
+"Juniperus deppeana","Cupressaceae","tree","JUNDEP","JUDEP"
+"Juniperus flaccida","Cupressaceae","tree","JUNFLA","JUFLA"
+"Juniperus pinchotii","Cupressaceae","shrub","JUNPIN","JUPIN"
+"Koeberlinia spinosa","Koeberlinaceae","shrub","KOESPI","KOSPI"
+"Krameria grayi","Krameriaceae","shrub","KRGRA","KRGRA"
+"Larrea tridentata","Zygophyllaceae","shrub","LARTRI","LATRI"
+"Leucophyllum candidum","Scrophulareaceae","shrub","LEUCAN","LECAN"
+"Mahonia trifoliolata","Berberaceae","shrub","MAHTRI","MATRI"
+"Mimosa aculeaticarpa","Fabaceae","shrub","MIMACU","MIACU"
+"Nolina erumpens","Nolinaceae","succulent","NOLERU","NOERU"
+"Opuntia azurea var. parva","Cactaceae","subshrub","OPUAZU","OPAZU"
+"Opuntia chisosensis","Cactaceae","succulent","OPUCHI","OPCHI"
+"Opuntia dulcis","Cactaceae","succulent","OPUDUL","OPDUL"
+"Opuntia grahamii","Cactaceae","succulent","OPUGRA","OPGRA"
+"Opuntia imbricata","Cactaceae","succulent","OPOIMB","OPIMB"
+"Opuntia leptocaulis","Cactaceae","succulent","OPULEP","OPLEP"
+"Opuntia phaecantha","Cactaceae","succulent","OPUPHA","OPPHA "
+"Pinus cembroides","Pinaceae","tree","PINCEM","PICEM"
+"Prosopis glandulosa","Fabaceae","shrub","PROGLA","PRGLA"
+"Quercus emoryii","Fagaceae","tree","QUEEMO","QUEMO"
+"Quercus gravesii","Fagaceae","tree","QUEGRA","QUGRA"
+"Quercus grisea","Fagaceae","tree","QUEGRI","QUGRI"
+"Rhus microphylla","Anacardiaceae","shrub","RHUMIC","RHMIC"
+"Rhus trilobata","Anacardiaceae","shrub","RHUTRI","RHTRI"
+"Rhus virens","Anacardiaceae","shrub","RHUVIR","RHVIR"
+"Salazaria mexicana","Lamiaceae","shrub","SALMEX","SAMEX"
+"Salvia regla","Lamiaceae","shrub","SALREG","SAREG"
+"Senna pilosior","Fabaceae","subshrub","SENPIL","SEPIL"
+"Viguiera stenoloba","Asteraceae","shrub","VIGSTE","VISTE"
+"Yucca elata","Agavaceae","succulent","YUCELA","YUELA"
+"Yucca torreyi","Agavaceae","succulent","YUCTOR","YUTOR"
+"Ziziphus obtusifolia","Rhamnaceae","shrub","ZIZOBT","ZIOBT"
+"NA","NA","NA","BG","BG"
+"NA","NA","NA","HERB","HERB"
