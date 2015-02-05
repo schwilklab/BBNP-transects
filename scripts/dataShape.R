@@ -1,206 +1,189 @@
-# Code by Elizabeth Waring
+# Code by Elizabeth Waring and Dylan Schwilk
 # Code for BBNP Drought project with Dylan Scwhilk
 # data collected in 2010 and 2011 at Big Bend National Park
 # This code was used for data shaping.
 
 library(plyr)
+#library(reshape2)
 
+
+
+###############################################################################
+## Step 1: Read in data, merge all years
+###############################################################################
 # All needed csv files
-
 species <- read.csv("../data/species.csv",
                     strip.white=TRUE, stringsAsFactors = FALSE)
+traits <-  read.csv("../data/traits.csv",strip.white=TRUE, stringsAsFactors = FALSE)
+
+
+# transect data:
 trans.2011 <- read.csv("../data/Trans.2011.csv",strip.white=TRUE,
                        stringsAsFactors = FALSE)
 trans.2010 <- read.csv("../data/Trans.2010.csv",strip.white=TRUE,
                        stringsAsFactors = FALSE)
-traits <-  read.csv("../data/traits.csv",strip.white=TRUE, stringsAsFactors = FALSE)
-
-
-############################################################################
-### STEP 1: Clean up data sets and organize them so they can be properly 
-###          merged together.  Also add and calulate data like dieback
-
-
-# Clean up species (5 column removed)
-species2 <- species # for table 3
-species <- subset(species, select = c(species,gf,longcode, spcode))
-
+trans.2013 <- read.csv("../data/Trans.2013.csv",strip.white=TRUE,
+                       stringsAsFactors = FALSE)
 
 # Add in year codes
 trans.2011$year <- 2011
 trans.2010$year <- 2010
-trans.2011$notes <- NULL
-trans.2011$transect<- NULL
-# rename colum in 2010 as coding for species is different between years
-names(trans.2010)  [4] <- "longcode"
+trans.2013$year <- 2013
 
-# Dist is already calculated in the 2010 data, so it must be added to 2011
-trans.2011$dist <- trans.2011$stop - trans.2011$start
-trans.2010$dieback <- 0 #no dieback measured in 2010
-names(trans.2010) [2] <- "ttrans" #renamed so column names match pre-merge
+# Clean up inconsistencies in data collection across years:
+# rename colum in 2010 and 2013 as coding for species is different between years
+names(trans.2010)[4] <- "longcode"
+names(trans.2013)[4] <- "longcode"
+# and get short code for those years:
+trans.2010 <- merge(trans.2010, species[4:5], all.x=TRUE)
+trans.2013 <- merge(trans.2013, species[4:5], all.x=TRUE)
 
+cleanColumns <- function(x) {
+    return( x[c("year", "site", "team", "transect", "spcode", "start", "stop", "dieback")])
+}
+
+trans.2010 <- cleanColumns(trans.2010)
+trans.2011 <- cleanColumns(trans.2011)
+trans.2013 <- cleanColumns(trans.2013)
+
+
+# Now rbind the years and clean up workspace
+trans.all <- rbind(trans.2010, trans.2011, trans.2013)
+rm(trans.2010, trans.2011, trans.2013)
+
+
+###############################################################################
+## Step 2: Do data shaping and simple calculations
+###############################################################################
+
+# calculate distance
+trans.all <- mutate(trans.all, dist = stop - start)
 
 # change data from site names to elevations at which data were collected
-trans.2010$site <- factor(trans.2010$site, levels = c("C3","C2","C1","BR1","PT1","PT2"))
-names(trans.2010)[1] <- "elev"
-levels(trans.2010$elev) <- c("666", "871", "1132", "1411", "1690", "1920")
+trans.all$site <- factor(trans.all$site, levels = c("C3","C2","C1","BR1","PT1","PT2"))
+trans.all$felev <-  trans.all$site
+levels(trans.all$felev) <- c("666", "871", "1132", "1411", "1690", "1920")
+# Elevation as a continuous varible
+trans.all$elev <- as.numeric(as.character(trans.all$felev))
 
-trans.2011$site <- factor(trans.2011$site, levels = c("C3","C2","C1","BR","PT1","PT2") )
-names(trans.2011)[1] <- "elev"
-levels(trans.2011$elev) <- c("666", "871", "1132", "1411", "1690", "1920")
+# Now make the factor version felev prettier:
+levels(trans.all$felev) <-c("666 m","871 m","1132 m","1411 m","1690 m",
+                            "1920 m")
 
-# get the two species code forms alone.
-speccode <- subset(species, select=c(longcode, spcode))
-
-
-# Combine 2010 to get same spcodes as 2011
-
-trans.2010 <- merge(speccode,trans.2010, by = "longcode", all.y = TRUE)
-trans.2010$longcode =NULL
-
-# Reorder columns
-trans.2010 <- trans.2010[c(1,3,2,9,4,5,8,7,6)]
-# Combine the data from 2010 to 2011
-trans.all <- rbind(trans.2010, trans.2011)
-
+# merge in growth form data
+trans.all <- merge(trans.all, species[c("species", "family", "gf")], all.x=TRUE)
 
 # do dieback calculations
+# NA means zero in dieback:
 trans.all$dieback[is.na(trans.all$dieback)] <- 0
 trans.all$dieback <-  trans.all$dieback / 100
 trans.all$deaddist <- trans.all$dist * trans.all$dieback
 
-# Elevation as a continuous varible
-trans.all$elev <- as.numeric(as.character(trans.all$elev))
+# year as factor
 trans.all$year <- factor(trans.all$year)
 
-# Make a factor variable for elevation as well
-trans.all$felev <- trans.all$elev
-trans.all$felev <- as.factor(trans.all$felev)
-levels(trans.all$felev) <-c("666 m","871 m","1132 m","1411 m","1690 m",
-                            "1920 m") 
+
+# unique transect ids
+trans.all <- mutate(trans.all, transect = paste(year, team, transect, sep="."))
+
 
 ############################################################################
-### STEP 2: Calculate cover and rlative cover for each species, then produce
+### STEP 3 : Calculate cover and relative cover for each species, then produce
 ###          some subsets so we can do analyses by different groups. We'll
 ###          calculate total cover by each group so we can relativize by
 ###          different categories
 
 ## as a check of replication
 ## calculate number of transects per site
-ddply(trans.all, .(elev, year), summarize, ntrans = length(unique(ttrans)))
+ddply(trans.all, .(elev, year), summarize, ntrans = length(unique(transect)))
 
-# subset that excludes HERB (just our species of interest)
+# subset that excludes HERB, BG (bare groud, and the one vine (just our species of interest)
 trans.plants <- subset(trans.all,trans.all$spcode!="HERB" & 
-                         trans.all$spcode!="BG")
-## put growth form in there
-# Made two versions of the vectors to test affects on all woody plants
-# and affects on different growth forms.  vectors ending in 2 are for 
-# for growth form analysis.
+                         trans.all$spcode!="BG" & gf != "vine")
 
-trans.plants2 <- merge(trans.plants, species, all=TRUE)
-
+### Total plant cover
 # now lets just get a summary by transect of total cover and total dieback
-plants.tcover <-  ddply(trans.plants, .(elev, felev, ttrans, year),
+plants.cover <-  ddply(trans.plants, .(elev, felev, transect, year),
                         summarise,
-                        tcover = sum(dist)/50, 
-                        tdieback =  sum(deaddist)/50)
-plants.tcover2 <-  ddply(trans.plants2, .(elev, felev, ttrans, year, gf),
+                        plants.cover = sum(dist)/50, 
+                        plants.dieback =  sum(deaddist)/50,
+                        plants.lcover = sum(plants.cover-plants.dieback),
+                        plants.pdieback = sum(plants.dieback/plants.cover))
+
+
+
+#####################################################
+## same thing by growth form
+
+gf.cover <-  ddply(trans.plants, .(elev, felev, transect, year, gf),
                          summarise,
-                         tcover = sum(dist)/50, 
-                         tdieback =  sum(deaddist)/50)
-plants.tcover2<-na.omit(plants.tcover2)
-
-# summary of LIVING plant cover by transects and elevations
-# Also proprotional dieback
-plants.lcover <-ddply(plants.tcover, .(elev,felev, ttrans, year),
-                      summarise,
-                      lcover= sum(tcover-tdieback),
-                      pdieback = sum(tdieback/tcover))
-
-plants.lcover2 <-ddply(plants.tcover2, .(elev,felev, ttrans, year, gf),
-                       summarise,
-                       lcover= sum(tcover-tdieback),
-                       pdieback = sum(tdieback/tcover))
-
-
-# merge living and total cover
-plants.tcover <- merge(plants.tcover, plants.lcover)
-plants.tcover2 <- merge(plants.tcover2, plants.lcover2)
-
-# now let's calculate cover and dieback for each species for each transect
-plants.cover <- ddply(trans.plants, .(elev, felev, ttrans,year,spcode),
-                      summarise,
-                      cover = sum(dist)/50, 
-                      dieback = sum(dist*dieback))
-
-plants.cover2 <- ddply(trans.plants2, .(elev, felev, ttrans,year,spcode, gf),
-                       summarise,
-                       cover = sum(dist)/50, 
-                       dieback = sum(dist*dieback))
-
-# Get relative cover for each species by transect by merging total cover by
-# transect with cover by species
-plants.cover <- merge(plants.cover, plants.tcover)
-plants.cover$relcover <- plants.cover$cover / plants.cover$tcover
-plants.cover <- merge(plants.cover, species, all=TRUE)
-
-plants.cover2 <- merge(plants.cover2, plants.tcover2)
-
-# Remove unknowns and vine
-# believe only unknow is "hailob" as well as some spcode with no info:
-# BG, HERB, OPIMB, redlea, roubro, unkjoi, YUELA, ZIOBT
-
-plants.cover<- na.omit(plants.cover)
-plants.cover <- subset(plants.cover, gf=="shrub" | gf=="subshrub" | gf=="succulent" | gf=="tree")
-
-plants.cover2<- na.omit(plants.cover2)
-plants.cover2 <- subset(plants.cover2, gf=="shrub" | gf=="subshrub" | gf=="succulent" | gf=="tree")
-
-
-# For some reason the year keeps reverting back to a double from a integer
-plants.cover$year <- factor(plants.cover$year)
+                         cover = sum(dist)/50, 
+                         dieback =  sum(deaddist)/50,
+                         live.cover = sum(cover-dieback),
+                         pdieback = dieback / cover)
+gf.cover <- merge(gf.cover, plants.cover, by = (c("year", "elev", "felev", "transect")))
 
 # logit transformation for relative cover
 epsilon <- 0.0001
-plants.cover$logPrelcover <- log((abs(plants.cover$relcover - epsilon))/
-                                   (1-(abs(plants.cover$relcover - epsilon))))
+gf.cover <- mutate(gf.cover, relcover = cover/plants.cover,
+                   logitrelcover = log((abs(relcover - epsilon)) /
+                                           (1-(abs(relcover - epsilon)))))
 
 
-# relative cover per transect
-plants.relcover <- ddply(plants.cover, .(elev, felev, ttrans, year, gf),
-                         summarise,
-                         logPrelcover=sum(logPrelcover),
-                         relcover=sum(relcover))
+####################
+## By species
+####################
 
 
-# dieback only occured in 2011, subset for analysis, could probably do this
-# with just the tran.2011 data
+# now let's calculate cover and dieback for each species for each transect
+species.cover <- ddply(trans.plants, .(elev, felev, transect, year, spcode, family, species, gf),
+                      summarise,
+                      cover = sum(dist)/50, 
+                      dieback = sum(dist*dieback),
+                      live.cover = sum(cover-dieback),
+                      pdieback = dieback / cover)
+
+species.cover <- merge(species.cover, plants.cover,
+                       by = (c("year", "elev", "felev", "transect")), all.x=TRUE)
+species.cover <- mutate(species.cover, relcover = cover/plants.cover,
+                        logitrelcover = log((abs(relcover - epsilon)) /
+                                                (1-(abs(relcover - epsilon)))))
+
+## TODO: add in zeroes for missing species
 
 
-dieback.2011 <- subset(plants.cover, plants.cover$year=="2011")
-dieback2.2011 <-subset(plants.cover2, plants.cover2$year=="2011")
 
-# There are plants with 100% dieback so epsilon must be subtracted for logit
-epsilon <- 0.0001
-dieback2.2011$logPdieback <- log((abs(dieback2.2011$pdieback - epsilon))/
-                                   (1-(abs(dieback2.2011$pdieback - epsilon))))
 
-totalDieback <- ddply(dieback2.2011, .(elev, felev, ttrans),
-                      summarise, dieback=mean(dieback),
-                      tdieback=mean(tdieback),
-                      pdieback=mean(pdieback),
-                      logPdieback=mean(logPdieback))
-dieback.2011 <- ddply(dieback2.2011, .(elev, felev, ttrans, gf),
-                      summarise, dieback=mean(dieback), 
-                      tdieback=mean(tdieback),
-                      pdieback=mean(pdieback),
-                      logPdieback=mean(logPdieback)
-)
-# for dieback and leaf trait analysis
-dieback.traits <-ddply(plants.cover2, .(elev, felev, ttrans, year, spcode, gf),
-                       summarise,tdieback=sum(tdieback),
-                       lcover=sum(lcover + 0.00001),
-                       pdieback=mean(pdieback),
-                       cover=mean(cover))
+## # dieback only occured in 2011, subset for analysis, could probably do this
+## # with just the tran.2011 data
 
-dieback.traits <-subset(dieback.traits, dieback.traits$year=="2011")
+
+## dieback.2011 <- subset(plants.cover, plants.cover$year=="2011")
+## dieback2.2011 <-subset(plants.cover2, plants.cover2$year=="2011")
+
+## # There are plants with 100% dieback so epsilon must be subtracted for logit
+## epsilon <- 0.0001
+## dieback2.2011$logPdieback <- log((abs(dieback2.2011$pdieback - epsilon))/
+##                                    (1-(abs(dieback2.2011$pdieback - epsilon))))
+
+## totalDieback <- ddply(dieback2.2011, .(elev, felev, ttrans),
+##                       summarise, dieback=mean(dieback),
+##                       tdieback=mean(tdieback),
+##                       pdieback=mean(pdieback),
+##                       logPdieback=mean(logPdieback))
+## dieback.2011 <- ddply(dieback2.2011, .(elev, felev, ttrans, gf),
+##                       summarise, dieback=mean(dieback), 
+##                       tdieback=mean(tdieback),
+##                       pdieback=mean(pdieback),
+##                       logPdieback=mean(logPdieback)
+## )
+
+
+## # for dieback and leaf trait analysis
+## dieback.traits <-ddply(plants.cover2, .(elev, felev, ttrans, year, spcode, gf),
+##                        summarise,tdieback=sum(tdieback),
+##                        lcover=sum(lcover + 0.00001),
+##                        pdieback=mean(pdieback),
+##                        cover=mean(cover))
+
+## dieback.traits <-subset(dieback.traits, dieback.traits$year=="2011")
