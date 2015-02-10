@@ -25,18 +25,26 @@ trans.2010 <- read.csv("../data/Trans.2010.csv",strip.white=TRUE,
 trans.2013 <- read.csv("../data/Trans.2013.csv",strip.white=TRUE,
                        stringsAsFactors = FALSE)
 
+# Note, 2015 data is from Feb 2015!
+trans.2015 <- read.csv("../data/Trans.2015.csv",strip.white=TRUE,
+                       stringsAsFactors = FALSE)
+
+
 # Add in year codes
 trans.2011$year <- 2011
 trans.2010$year <- 2010
 trans.2013$year <- 2013
+trans.2015$year <- 2015
 
 # Clean up inconsistencies in data collection across years:
 # rename colum in 2010 and 2013 as coding for species is different between years
 names(trans.2010)[4] <- "longcode"
 names(trans.2013)[4] <- "longcode"
+names(trans.2015)[4] <- "longcode"
 # and get short code for those years:
 trans.2010 <- merge(trans.2010, species[4:5], all.x=TRUE)
 trans.2013 <- merge(trans.2013, species[4:5], all.x=TRUE)
+trans.2015 <- merge(trans.2015, species[4:5], all.x=TRUE)
 
 cleanColumns <- function(x) {
     return( x[c("year", "site", "team", "transect", "spcode", "start", "stop", "dieback")])
@@ -45,11 +53,11 @@ cleanColumns <- function(x) {
 trans.2010 <- cleanColumns(trans.2010)
 trans.2011 <- cleanColumns(trans.2011)
 trans.2013 <- cleanColumns(trans.2013)
-
+trans.2015 <- cleanColumns(trans.2015)
 
 # Now rbind the years and clean up workspace
-trans.all <- rbind(trans.2010, trans.2011, trans.2013)
-rm(trans.2010, trans.2011, trans.2013)
+trans.all <- rbind(trans.2010, trans.2011, trans.2013, trans.2015)
+rm(trans.2010, trans.2011, trans.2013, trans.2015)
 
 
 ###############################################################################
