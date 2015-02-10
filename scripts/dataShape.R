@@ -79,7 +79,7 @@ levels(trans.all$felev) <-c("666 m","871 m","1132 m","1411 m","1690 m",
                             "1920 m")
 
 # merge in growth form data
-trans.all <- merge(trans.all, species[c("species", "family", "gf")], all.x=TRUE)
+trans.all <- merge(trans.all, species[c("spcode", "species", "family", "gf")], all.x=TRUE)
 
 # do dieback calculations
 # NA means zero in dieback:
@@ -88,7 +88,7 @@ trans.all$dieback <-  trans.all$dieback / 100
 trans.all$deaddist <- trans.all$dist * trans.all$dieback
 
 # year as factor
-trans.all$year <- factor(trans.all$year)
+# trans.all$year <- factor(trans.all$year)
 
 
 # unique transect ids
@@ -111,31 +111,35 @@ trans.plants <- subset(trans.all,trans.all$spcode!="HERB" &
 
 ### Total plant cover
 # now lets just get a summary by transect of total cover and total dieback
-plants.cover <-  ddply(trans.plants, .(elev, felev, transect, year),
+plants.cover <-  ddply(trans.plants, .(year, elev, felev, transect),
                         summarise,
                         plants.cover = sum(dist)/50, 
-                        plants.dieback =  sum(deaddist)/50,
-                        plants.lcover = sum(plants.cover-plants.dieback),
-                        plants.pdieback = sum(plants.dieback/plants.cover))
+                        plants.dieback =  sum(deaddist)/50)
+
+plants.cover <- mutate(plants.cover, plants.lcover = plants.cover-plants.dieback, plants.pdieback = plants.dieback/plants.cover)
+
 
 
 
 #####################################################
 ## same thing by growth form
 
-gf.cover <-  ddply(trans.plants, .(elev, felev, transect, year, gf),
+gf.cover <-  ddply(trans.plants, .(year, elev, felev, transect, gf),
                          summarise,
                          cover = sum(dist)/50, 
-                         dieback =  sum(deaddist)/50,
-                         live.cover = sum(cover-dieback),
-                         pdieback = dieback / cover)
+                         dieback =  sum(deaddist)/50)
+gf.cover <- mutate(gf.cover, live.cover = cover - dieback, pdieback = dieback/cover)
+
 gf.cover <- merge(gf.cover, plants.cover, by = (c("year", "elev", "felev", "transect")))
 
-# logit transformation for relative cover
+# logit transformation for relative cover and dieback
 epsilon <- 0.0001
 gf.cover <- mutate(gf.cover, relcover = cover/plants.cover,
                    logitrelcover = log((abs(relcover - epsilon)) /
-                                           (1-(abs(relcover - epsilon)))))
+                                           (1-(abs(relcover - epsilon)))),
+                   logitdieback = log((abs(pdieback - epsilon)) /
+                                           (1-(abs(pdieback - epsilon))))
+                   )
 
 
 ####################
@@ -149,7 +153,7 @@ species.cover <- ddply(trans.plants, .(elev, felev, transect, year, spcode, fami
                       cover = sum(dist)/50, 
                       dieback = sum(dist*dieback),
                       live.cover = sum(cover-dieback),
-                      pdieback = dieback / cover)
+                      pdieback = sum(deaddist) / sum(dist))
 
 species.cover <- merge(species.cover, plants.cover,
                        by = (c("year", "elev", "felev", "transect")), all.x=TRUE)
