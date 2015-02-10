@@ -4,9 +4,6 @@
 # This code was used for data shaping.
 
 library(plyr)
-#library(reshape2)
-
-
 
 ###############################################################################
 ## Step 1: Read in data, merge all years
@@ -47,7 +44,8 @@ trans.2013 <- merge(trans.2013, species[4:5], all.x=TRUE)
 trans.2015 <- merge(trans.2015, species[4:5], all.x=TRUE)
 
 cleanColumns <- function(x) {
-    return( x[c("year", "site", "team", "transect", "spcode", "start", "stop", "dieback")])
+    return( x[c("year", "site", "team", "transect", "spcode", "start", "stop",
+                "dieback")])
 }
 
 trans.2010 <- cleanColumns(trans.2010)
@@ -79,7 +77,8 @@ levels(trans.all$felev) <-c("666 m","871 m","1132 m","1411 m","1690 m",
                             "1920 m")
 
 # merge in growth form data
-trans.all <- merge(trans.all, species[c("spcode", "species", "family", "gf")], all.x=TRUE)
+trans.all <- merge(trans.all, species[c("spcode", "species", "family", "gf")],
+                   all.x=TRUE)
 
 # do dieback calculations
 # NA means zero in dieback:
@@ -105,7 +104,8 @@ trans.all <- mutate(trans.all, transect = paste(year, team, transect, sep="."))
 ## calculate number of transects per site
 ddply(trans.all, .(elev, year), summarize, ntrans = length(unique(transect)))
 
-# subset that excludes HERB, BG (bare groud, and the one vine (just our species of interest)
+# subset that excludes HERB, BG (bare groud, and the one vine (just our species
+# of interest)
 trans.plants <- subset(trans.all,trans.all$spcode!="HERB" & 
                          trans.all$spcode!="BG" & gf != "vine")
 
@@ -116,9 +116,8 @@ plants.cover <-  ddply(trans.plants, .(year, elev, felev, transect),
                         plants.cover = sum(dist)/50, 
                         plants.dieback =  sum(deaddist)/50)
 
-plants.cover <- mutate(plants.cover, plants.lcover = plants.cover-plants.dieback, plants.pdieback = plants.dieback/plants.cover)
-
-
+plants.cover <- mutate(plants.cover, plants.lcover = plants.cover-plants.dieback,
+                       plants.pdieback = plants.dieback/plants.cover)
 
 
 #####################################################
@@ -130,7 +129,8 @@ gf.cover <-  ddply(trans.plants, .(year, elev, felev, transect, gf),
                          dieback =  sum(deaddist)/50)
 gf.cover <- mutate(gf.cover, live.cover = cover - dieback, pdieback = dieback/cover)
 
-gf.cover <- merge(gf.cover, plants.cover, by = (c("year", "elev", "felev", "transect")))
+gf.cover <- merge(gf.cover, plants.cover,
+                  by = (c("year", "elev", "felev", "transect")))
 
 # logit transformation for relative cover and dieback
 epsilon <- 0.0001
@@ -148,12 +148,13 @@ gf.cover <- mutate(gf.cover, relcover = cover/plants.cover,
 
 
 # now let's calculate cover and dieback for each species for each transect
-species.cover <- ddply(trans.plants, .(elev, felev, transect, year, spcode, family, species, gf),
-                      summarise,
-                      cover = sum(dist)/50, 
-                      dieback = sum(dist*dieback),
-                      live.cover = sum(cover-dieback),
-                      pdieback = sum(deaddist) / sum(dist))
+species.cover <- ddply(trans.plants,
+                       .(elev, felev, transect, year, spcode, family, species, gf),
+                       summarise,
+                       cover = sum(dist)/50, 
+                       dieback = sum(dist*dieback),
+                       live.cover = sum(cover-dieback),
+                       pdieback = sum(deaddist) / sum(dist))
 
 species.cover <- merge(species.cover, plants.cover,
                        by = (c("year", "elev", "felev", "transect")), all.x=TRUE)
@@ -162,40 +163,3 @@ species.cover <- mutate(species.cover, relcover = cover/plants.cover,
                                                 (1-(abs(relcover - epsilon)))))
 
 ## TODO: add in zeroes for missing species
-
-
-
-
-## # dieback only occured in 2011, subset for analysis, could probably do this
-## # with just the tran.2011 data
-
-
-## dieback.2011 <- subset(plants.cover, plants.cover$year=="2011")
-## dieback2.2011 <-subset(plants.cover2, plants.cover2$year=="2011")
-
-## # There are plants with 100% dieback so epsilon must be subtracted for logit
-## epsilon <- 0.0001
-## dieback2.2011$logPdieback <- log((abs(dieback2.2011$pdieback - epsilon))/
-##                                    (1-(abs(dieback2.2011$pdieback - epsilon))))
-
-## totalDieback <- ddply(dieback2.2011, .(elev, felev, ttrans),
-##                       summarise, dieback=mean(dieback),
-##                       tdieback=mean(tdieback),
-##                       pdieback=mean(pdieback),
-##                       logPdieback=mean(logPdieback))
-## dieback.2011 <- ddply(dieback2.2011, .(elev, felev, ttrans, gf),
-##                       summarise, dieback=mean(dieback), 
-##                       tdieback=mean(tdieback),
-##                       pdieback=mean(pdieback),
-##                       logPdieback=mean(logPdieback)
-## )
-
-
-## # for dieback and leaf trait analysis
-## dieback.traits <-ddply(plants.cover2, .(elev, felev, ttrans, year, spcode, gf),
-##                        summarise,tdieback=sum(tdieback),
-##                        lcover=sum(lcover + 0.00001),
-##                        pdieback=mean(pdieback),
-##                        cover=mean(cover))
-
-## dieback.traits <-subset(dieback.traits, dieback.traits$year=="2011")
