@@ -89,6 +89,101 @@ ggplot(plants.cover, aes(year, plants.lcover)) +
 ggsave(file="../results/total-living-cover.pdf")
 
 
+
+#######################################################33
+# Live cover by growth form
+# by year on x and facet by elev
+ggplot(gf.cover, aes(year, live.cover)) +
+    facet_grid(felev ~ gf) +
+    geom_point() +
+    geom_boxplot(aes(group=year)) +
+    geom_smooth(method="lm", se=FALSE) +
+    scale_x_continuous(breaks=c(2010,2012,2014))+
+    labs(x="Year") +
+    labs(y="Living Cover") +
+    themeopts
+
+
+# some subsets:
+ggplot(subset(gf.cover, gf=="tree"), aes(year, live.cover)) +
+    facet_grid(~ felev) +
+    geom_point() +
+    geom_boxplot(aes(group=year)) +
+    geom_smooth(method="lm", se=FALSE) +
+    scale_x_continuous(breaks=c(2010,2012,2014))+
+    labs(x="Year") +
+    labs(y="Living cover of trees") +
+    themeopts
+
+
+# SHRUBS:
+ggplot(subset(gf.cover, gf=="shrub"), aes(year, live.cover)) +
+    facet_grid(~ felev) +
+    geom_point() +
+    geom_boxplot(aes(group=year)) +
+  #  geom_smooth(method="lm", se=FALSE) +
+    scale_x_continuous(breaks=c(2010,2012,2014))+
+    labs(x="Year") +
+    labs(y="Living cover of shrubs") +
+    themeopts
+
+
+# SUCCULENTS:
+ggplot(subset(gf.cover, gf=="succulent"), aes(year, live.cover)) +
+    facet_grid(~ felev) +
+    geom_point() +
+    geom_boxplot(aes(group=year)) +
+  #  geom_smooth(method="lm", se=FALSE) +
+    scale_x_continuous(breaks=c(2010,2012,2014))+
+    labs(x="Year") +
+    labs(y="Living cover of succulents") +
+    themeopts
+
+# CACTI:
+ggplot(subset(family.cover, family=="Cactaceae"), aes(year, live.cover)) +
+    facet_grid(.~felev) +
+    geom_point() +
+    geom_boxplot(aes(group=year)) +
+  #  geom_smooth(method="lm", se=FALSE) +
+    scale_x_continuous(breaks=c(2010,2012,2014))+
+    labs(x="Year") +
+    labs(y="Living cover of cacti") +
+    themeopts
+
+# OAKS
+ggplot(subset(family.cover, family=="Fagaceae"), aes(year, live.cover)) +
+    facet_grid(.~felev) +
+    geom_point() +
+    geom_boxplot(aes(group=year)) +
+  #  geom_smooth(method="lm", se=FALSE) +
+    scale_x_continuous(breaks=c(2010,2012,2014))+
+    labs(x="Year") +
+    labs(y="Living cover of oaks") +
+    themeopts
+
+
+# pines
+ggplot(subset(family.cover, family=="Pinaceae"), aes(year, live.cover)) +
+    facet_grid(.~felev) +
+    geom_point() +
+    geom_boxplot(aes(group=year)) +
+  #  geom_smooth(method="lm", se=FALSE) +
+    scale_x_continuous(breaks=c(2010,2012,2014))+
+    labs(x="Year") +
+    labs(y="Living cover of pines") +
+    themeopts
+
+# Junipers
+ggplot(subset(family.cover, family=="Cupressaceae"), aes(year, live.cover)) +
+    facet_grid(.~felev) +
+    geom_point() +
+    geom_boxplot(aes(group=year)) +
+  #  geom_smooth(method="lm", se=FALSE) +
+    scale_x_continuous(breaks=c(2010,2012,2014))+
+    labs(x="Year") +
+    labs(y="Living cover of junipers") +
+    themeopts
+
 ##############################################################################
 # Dieback figs
 
