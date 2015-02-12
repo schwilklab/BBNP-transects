@@ -6,7 +6,7 @@
 source("./dataShape.R")
 
 library(ggplot2)
-library(gridExtra)
+#library(gridExtra)
 
 # figure formatting
 textsize <- 18
@@ -64,7 +64,7 @@ ggplot(plants.cover, aes(year, plants.cover)) +
     labs(x="Year") +
     labs(y="Total Cover") +
     themeopts
-
+ggsave(file="../results/total-cover2.pdf", width=16, height=8)
 
 # total living cover
 ggplot(plants.cover, aes(elev, plants.lcover)) +
@@ -86,7 +86,29 @@ ggplot(plants.cover, aes(year, plants.lcover)) +
     labs(x="Year") +
     labs(y="Total Living Cover") +
     themeopts
-ggsave(file="../results/total-living-cover.pdf")
+ggsave(file="../results/total-living-cover.pdf", width=16, height=8)
+
+# total living cover
+ggplot(plants.cover, aes(elev, plants.lcover)) +
+    facet_grid(year ~ .) +
+    geom_point() +
+    geom_smooth(method="lm", se=FALSE) +
+    scale_x_continuous(breaks=c(750,1000,1250,1500,1750))+
+    labs(x="Elevation (m)") +
+    labs(y="Total Living Cover") +
+    themeopts
+
+# by year on x and facet by elev
+ggplot(plants.cover, aes(year, plants.lcover)) +
+    facet_grid(. ~ felev) +
+    geom_point() +
+    geom_boxplot(aes(group=year)) +
+    geom_smooth(method="lm", se=FALSE) +
+    scale_x_continuous(breaks=c(2010,2012,2014))+
+    labs(x="Year") +
+    labs(y="Total Living Cover") +
+    themeopts
+ggsave(file="../results/total-living-cover.pdf", width=16, height=8)
 
 
 
@@ -102,7 +124,7 @@ ggplot(gf.cover, aes(year, live.cover)) +
     labs(x="Year") +
     labs(y="Living Cover") +
     themeopts
-
+ggsave(file="../results/live-cover-by-gf.pdf", width=16, height=8)
 
 # some subsets:
 ggplot(subset(gf.cover, gf=="tree"), aes(year, live.cover)) +
@@ -114,7 +136,7 @@ ggplot(subset(gf.cover, gf=="tree"), aes(year, live.cover)) +
     labs(x="Year") +
     labs(y="Living cover of trees") +
     themeopts
-
+ggsave(file="../results/live-cover-trees.pdf")
 
 # SHRUBS:
 ggplot(subset(gf.cover, gf=="shrub"), aes(year, live.cover)) +
@@ -126,7 +148,7 @@ ggplot(subset(gf.cover, gf=="shrub"), aes(year, live.cover)) +
     labs(x="Year") +
     labs(y="Living cover of shrubs") +
     themeopts
-
+ggsave(file="../results/live-cover-shrubs.pdf", width=16, height=8)
 
 # SUCCULENTS:
 ggplot(subset(gf.cover, gf=="succulent"), aes(year, live.cover)) +
@@ -138,6 +160,7 @@ ggplot(subset(gf.cover, gf=="succulent"), aes(year, live.cover)) +
     labs(x="Year") +
     labs(y="Living cover of succulents") +
     themeopts
+ggsave(file="../results/live-cover-succulents.pdf", width=16, height=8)
 
 # CACTI:
 ggplot(subset(family.cover, family=="Cactaceae"), aes(year, live.cover)) +
@@ -149,7 +172,7 @@ ggplot(subset(family.cover, family=="Cactaceae"), aes(year, live.cover)) +
     labs(x="Year") +
     labs(y="Living cover of cacti") +
     themeopts
-
+ggsave(file="../results/live-cover-cacti.pdf", width=16, height=8)
 # OAKS
 ggplot(subset(family.cover, family=="Fagaceae"), aes(year, live.cover)) +
     facet_grid(.~felev) +
@@ -160,7 +183,7 @@ ggplot(subset(family.cover, family=="Fagaceae"), aes(year, live.cover)) +
     labs(x="Year") +
     labs(y="Living cover of oaks") +
     themeopts
-
+ggsave(file="../results/live-cover-oaks.pdf", width=16, height=8)
 
 # pines
 ggplot(subset(family.cover, family=="Pinaceae"), aes(year, live.cover)) +
@@ -172,7 +195,7 @@ ggplot(subset(family.cover, family=="Pinaceae"), aes(year, live.cover)) +
     labs(x="Year") +
     labs(y="Living cover of pines") +
     themeopts
-
+ggsave(file="../results/live-cover-pines.pdf", width=16, height=8)
 # Junipers
 ggplot(subset(family.cover, family=="Cupressaceae"), aes(year, live.cover)) +
     facet_grid(.~felev) +
@@ -183,6 +206,7 @@ ggplot(subset(family.cover, family=="Cupressaceae"), aes(year, live.cover)) +
     labs(x="Year") +
     labs(y="Living cover of junipers") +
     themeopts
+ggsave(file="../results/live-cover-junipers.pdf")
 
 ##############################################################################
 # Dieback figs

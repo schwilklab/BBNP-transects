@@ -5,6 +5,9 @@
 
 library(plyr)
 
+# for logit transform:
+epsilon <- 0.0001
+
 ###############################################################################
 ## Step 1: Read in data, merge all years
 ###############################################################################
@@ -221,7 +224,6 @@ family.cover <- merge(family.cover, plants.cover,
 
 
 # logit transformation for relative cover and dieback
-epsilon <- 0.0001
 family.cover <- mutate(family.cover, relcover = cover/plants.cover,
                    logitrelcover = log((abs(relcover - epsilon)) /
                                            (1-(abs(relcover - epsilon)))),
