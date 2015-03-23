@@ -8,6 +8,11 @@ source("./dataShape.R")
 library(ggplot2)
 #library(gridExtra)
 
+pretty_name <- function(species) {
+    parts <- str_match(species, "([A-Z])([a-z]+) ([a-z]+)")
+    return(paste(parts[,2], parts[, 4], sep=". "))
+}
+
 # figure formatting
 textsize <- 18
 themeopts <- theme( axis.title.y = element_text(size = textsize, 
@@ -79,9 +84,9 @@ ggplot(plants.cover, aes(elev, plants.lcover)) +
 # by year on x and facet by elev
 ggplot(plants.cover, aes(year, plants.lcover)) +
     facet_grid(. ~ felev) +
-    geom_point() +
     geom_boxplot(aes(group=year)) +
     geom_smooth(method="lm", se=FALSE) +
+#    geom_point() +
     scale_x_continuous(breaks=c(2010,2012,2014))+
     labs(x="Year") +
     labs(y="Total Living Cover") +
@@ -126,6 +131,19 @@ ggplot(gf.cover, aes(year, live.cover)) +
     themeopts
 ggsave(file="../results/live-cover-by-gf.pdf", width=16, height=8)
 
+ggplot(subset(gf.cover, felev == "1920 m" ), aes(year, live.cover)) +
+    facet_grid(gf ~ ., scales="free") +
+    geom_point() +
+    geom_boxplot(aes(group=year)) +
+#    geom_smooth(method="lm", se=FALSE) +
+    scale_x_continuous(breaks=c(2010,2012,2014))+
+    labs(x="Year") +
+    labs(y="Living Cover") +
+    themeopts
+ggsave(file="../results/live-cover-by-gf-1920m.pdf", width=16, height=8)
+
+
+
 # some subsets:
 ggplot(subset(gf.cover, gf=="tree"), aes(year, live.cover)) +
     facet_grid(~ felev) +
@@ -137,6 +155,30 @@ ggplot(subset(gf.cover, gf=="tree"), aes(year, live.cover)) +
     labs(y="Living cover of trees") +
     themeopts
 ggsave(file="../results/live-cover-trees.pdf")
+
+
+ggplot(subset(gf.cover, gf=="tree" & felev == "1920 m" ), aes(year, live.cover)) +
+    geom_boxplot(aes(group=year)) +
+    geom_smooth(method="lm", se=FALSE) +
+    scale_x_continuous(breaks=c(2010,2012,2014))+
+    labs(x="Year") +
+    labs(y="Living cover of trees") +
+    themeopts
+ggsave(file="../results/live-cover-trees-1920m.pdf")
+
+
+# trees by species
+species.cover$pretty.name <- pretty_name(species.cover$species)
+ggplot(subset(species.cover, gf=="tree" & elev > 1500 & pretty.name != "NA. NA" ), aes(year, live.cover)) +
+    facet_grid( . ~ pretty.name) +
+    geom_boxplot(aes(group=year)) +
+#    geom_smooth(method="lm", se=FALSE) +
+    scale_x_continuous(breaks=c(2010,2012,2014))+
+    labs(x="Year") +
+    labs(y="Living cover") +
+    themeopts
+ggsave(file="../results/live-cover-trees-by-species.pdf")
+
 
 # SHRUBS:
 ggplot(subset(gf.cover, gf=="shrub"), aes(year, live.cover)) +
