@@ -142,9 +142,9 @@ species.cover <- ddply(trans.plants,
                        .(transect, spcode),
                        summarise,
                        cover = sum(dist)/50, 
-                       dieback = sum(dist*dieback),
-                       live.cover = sum(cover-dieback),
-                       pdieback = sum(deaddist) / sum(dist))
+                       dieback = sum(dist*dieback)/50,
+                       live.cover = cover - dieback,
+                       pdieback = dieback / cover)
 
 ## add in zeroes for missing species
 all.transects.species <- expand.grid(transect = unique(plants.cover$transect),
