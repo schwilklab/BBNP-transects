@@ -216,8 +216,8 @@ ggplot(subset(family.cover, family=="Cactaceae"), aes(year, live.cover)) +
     themeopts
 ggsave(file="../results/live-cover-cacti.pdf", width=16, height=8)
 # OAKS
-ggplot(subset(family.cover, family=="Fagaceae"), aes(year, live.cover)) +
-    facet_grid(.~felev) +
+ggplot(subset(family.cover, family=="Fagaceae" & elev==1920), aes(year, live.cover)) +
+    #facet_grid(.~felev) +
     geom_point() +
     geom_boxplot(aes(group=year)) +
   #  geom_smooth(method="lm", se=FALSE) +
@@ -225,11 +225,11 @@ ggplot(subset(family.cover, family=="Fagaceae"), aes(year, live.cover)) +
     labs(x="Year") +
     labs(y="Living cover of oaks") +
     themeopts
-ggsave(file="../results/live-cover-oaks.pdf", width=16, height=8)
+ggsave(file="../results/live-cover-oaks.pdf", width=6, height=4)
 
 # pines
-ggplot(subset(family.cover, family=="Pinaceae"), aes(year, live.cover)) +
-    facet_grid(.~felev) +
+ggplot(subset(family.cover, family=="Pinaceae" & elev==1920), aes(year, live.cover)) +
+   # facet_grid(.~felev) +
     geom_point() +
     geom_boxplot(aes(group=year)) +
   #  geom_smooth(method="lm", se=FALSE) +
@@ -237,7 +237,7 @@ ggplot(subset(family.cover, family=="Pinaceae"), aes(year, live.cover)) +
     labs(x="Year") +
     labs(y="Living cover of pines") +
     themeopts
-ggsave(file="../results/live-cover-pines.pdf", width=16, height=8)
+ggsave(file="../results/live-cover-pines.pdf", width=6, height=4)
 # Junipers
 ggplot(subset(family.cover, family=="Cupressaceae"), aes(year, live.cover)) +
     facet_grid(.~felev) +
