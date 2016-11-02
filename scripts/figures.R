@@ -14,22 +14,46 @@ pretty_name <- function(species) {
 }
 
 # figure formatting
-textsize <- 18
-themeopts <- theme( axis.title.y = element_text(size = textsize, 
-                                                angle = 90,vjust=0.3) ,
-                    axis.title.x = element_text(size = textsize,
-                                                vjust=-0.3),
-                    panel.background = element_blank(), 
-                    panel.border = element_rect(fill=NA), 
-                    axis.text.x = element_text(size=16,color = "black"),
-                    axis.text.y = element_text(size=16, color = "black"),
-                    legend.title = element_text(size = 16),
-                    legend.text = element_text(size = 16), 
-                    strip.text.x = element_text(size = textsize), 
-                    strip.text.y = element_text(size = textsize), 
-                    strip.background = element_blank(),
-                    legend.background=element_blank(),
-                    legend.key = element_rect(fill = "white"))  
+
+bestfit <- geom_smooth(method="lm",se = F, color = "black", size=1.5)
+textsize <- 12
+smsize <- textsize-2
+fontfamily = "Arial"
+themeopts <-   theme(axis.title.y = element_text(family=fontfamily,
+                       size = textsize, angle = 90, vjust=0.3),
+               axis.title.x = element_text(family=fontfamily, size = textsize, vjust=-0.3),
+               axis.ticks = element_line(colour = "black"),
+               panel.background = element_rect(size = 1.6, fill = NA),
+               panel.border = element_rect(size = 1.6, fill=NA),
+               axis.text.x  = element_text(family=fontfamily, size=smsize, color="black"),
+               axis.text.y  = element_text(family=fontfamily, size=smsize, color = "black"),
+               strip.text.x = element_text(family=fontfamily, size = smsize, face="italic"),
+               strip.text.y = element_text(family=fontfamily, size = smsize, face="italic"),
+               legend.title = element_text(family=fontfamily, size=textsize),
+               legend.text = element_text(family=fontfamily, size=smsize, face="italic"),
+               legend.key = element_rect(fill=NA),
+               panel.grid.minor = element_blank(),
+               panel.grid.major = element_blank(), #element_line(colour = "grey90", size = 0.2),
+               strip.background = element_rect(fill = "grey80", colour = "grey50")      
+               #panel.grid.major = element_line(colour = NA)
+                )
+
+## textsize <- 18
+## themeopts <- theme( axis.title.y = element_text(size = textsize, 
+##                                                 angle = 90,vjust=0.3) ,
+##                     axis.title.x = element_text(size = textsize,
+##                                                 vjust=-0.3),
+##                     panel.background = element_blank(), 
+##                     panel.border = element_rect(fill=NA), 
+##                     axis.text.x = element_text(size=16,color = "black"),
+##                     axis.text.y = element_text(size=16, color = "black"),
+##                     legend.title = element_text(size = 16),
+##                     legend.text = element_text(size = 16), 
+##                     strip.text.x = element_text(size = textsize), 
+##                     strip.text.y = element_text(size = textsize), 
+##                     strip.background = element_blank(),
+##                     legend.background=element_blank(),
+##                     legend.key = element_rect(fill = "white"))  
 
 stat_sum_single <- function(fun, geom="point", ...) {
   stat_summary(fun.y=fun, colour="black", geom=geom, size = 4, ...)
